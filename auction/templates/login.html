@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+
+    <div class="container col-md-6">
+        <h2>Login Form</h2>
+        <!--update the action and the method with relevant information-->
+        <form action="/login" , method="POST">
+            <!-- keeps the label and text in a group vertically stacked-->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+            </div>
+
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+            </div>
+
+            <button type="submit" class="btn btn-default">Submit</button>
+
+        </form>
+    </div>
+
+</body>
+
+{% endblock %}

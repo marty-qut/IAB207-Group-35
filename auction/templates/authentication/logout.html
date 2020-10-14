@@ -1,0 +1,18 @@
+<!-- Not currently used -->
+{% extends 'base.html' %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-12">
+
+        <h3>You have successfully logged out</h3>
+        Click <a href="{{url_for('main.index')}}">here</a> to return to the homepage
+
+        
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
