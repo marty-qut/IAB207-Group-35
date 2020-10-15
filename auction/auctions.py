@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect
-#from .models import Destination, Comment
-#from travel.forms import DestinationForm, CommentForm
+#from .models import Auction, Comment
+#from travel.forms import AuctionForm, CommentForm
 from flask_login import login_required, current_user
 from . import db
 import os

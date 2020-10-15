@@ -8,7 +8,7 @@
 # Sorted out old html files into a subfolder for posterity, can now run main.py python file in terminal to get a browser version of the site that  loosely works to a week 7/very little week 8 standard. Each page uses the {% extend base.html %} method to automatically generate headings and footers from a template. - Toby
 
 # 15/10
-# Quickly added an auctions.py file which replicates what the destinations.py file did for the workshop website.
+# Quickly added an auctions.py file which will replicate what the destinations.py file did for the workshop website.
 
 
 # TODO: 
