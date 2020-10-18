@@ -1,13 +1,15 @@
-<!-- Not currently used -->
+<!-- Not Currently Used -->
+
 {% extends 'base.html' %}
 
 {% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
   <div class="container">
-    <div class="row mt-4">
+    <div class="row mt-5">
       <div class="col-md-12">
 
-        <h1>Register</h1>
+        <h1>Add Travel Destination</h1>
+        <p>Enter a country that you will help clients travel to.</p>
 
         {{wtf.quick_form(form)}}
         

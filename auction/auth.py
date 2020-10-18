@@ -1,5 +1,5 @@
 from flask import ( 
-    Blueprint, flash, render_template, request, url_for, redirect
+    Blueprint, flash, render_template, request, url_for, redirect, session
 ) 
 from werkzeug.security import generate_password_hash,check_password_hash
 #from .models import User
@@ -9,7 +9,7 @@ from . import db
 
 
 #create a blueprint
-bp = Blueprint('auth', __name__)
+bp = Blueprint('auth', __name__, url_prefix = '/authentication')
 
 
 # this is the hint for a login function
@@ -36,3 +36,23 @@ bp = Blueprint('auth', __name__)
 #         else:
 #             flash(error)
 #     return render_template('user.html', form=login_form, heading='Login')
+
+@bp.route('/login', methods=['GET', 'POST'])
+def login():
+    login_form_instance = LoginForm()
+    if login_form_instance.validate_on_submit():
+        session['email'] = login_form_instance.user_name.data
+        return redirect(url_for('auth.login'))
+    return render_template('authentication/login.html', form=login_form_instance)
+
+@bp.route('/register', methods=['GET', 'POST'])
+def register():
+    register_form_instance = RegisterForm()
+    if register_form_instance.validate_on_submit():
+        return redirect(url_for('auth.login'))
+    return render_template('authentication/register.html', form=register_form_instance)
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return render_template('authentication/logout.html')

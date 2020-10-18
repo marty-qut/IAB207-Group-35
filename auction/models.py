@@ -1,4 +1,4 @@
-class Destination:
+class Auction:
     def __init__(self, name, description, image, currency):
         self.name = name
         self.description = description
@@ -14,6 +14,7 @@ class Destination:
         str.format(self.name, self.currency)
         return str
 
+# class Watchlist:
 
 class Comment:
     def __init__(self, user, text, created_at):

@@ -8,6 +8,6 @@ from werkzeug.utils import secure_filename
 
 bp = Blueprint('auction', __name__, url_prefix = '/auctions')
 
-@bp.route('<id>')
+@bp.route('/<id>')
 def show(id):
-    return render_template('index.html')
+    return render_template('auctions/listing.html')

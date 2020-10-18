@@ -10,8 +10,11 @@
 # 15/10
 # Quickly added an auctions.py file which will replicate what the destinations.py file did for the workshop website.
 
+# 18/10
+# Made authenticated routing possible + used basic wtforms to set up login, register and logout pages to a week 8 standard. Sorted out pages into their respective folders (creation.html in the templates directory will need to be deleted once we 100% know what the form fields will be, and should replace the creation.html file that's currently in the auctions folder.) - Toby
 
-# TODO: 
-# Proper routing for login and register pages using the authenticated method via auth.py
-# Loosely defined models.py tables to enable forms for pages (as well as ) and as an extension to this: pre-generated forms using WTF quick forms instead of the hardcoded login form currently used
-# Custom item page that doesn't hard-code it's content
+# TO-DO: 
+# Defined models.py tables to actually create a database which is needed to store data and display it so we can then make the creation.html page properly as well as login and logout requirements.
+# Custom item page that doesn't hard-code it's content.
+# Login form requires a checkbox of some sort to determine whether the user will be a buyer or seller - this will determine if they are allowed to create a listing or not (RequiredIf field is the hint though I can't find too much on it other than it's some sort of validator).
+# Custom watchlist page (this should be similar to a comments section in terms of creating it).

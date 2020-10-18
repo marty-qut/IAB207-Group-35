@@ -36,8 +36,12 @@ def create_app():
 
     #importing views module here to avoid circular references
     # a commonly used practice.
+    
     from . import views
     app.register_blueprint(views.bp)
+
+    from . import auctions
+    app.register_blueprint(auctions.bp)
 
     from . import auth
     app.register_blueprint(auth.bp)
