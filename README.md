@@ -11,7 +11,7 @@
 # Quickly added an auctions.py file which will replicate what the destinations.py file did for the workshop website.
 
 # 18/10
-# Made authenticated routing possible + used basic wtforms to set up login, register and logout pages to a week 8 standard. Sorted out pages into their respective folders (creation.html in the templates directory will need to be deleted once we 100% know what the form fields will be, and should replace the creation.html file that's currently in the auctions folder.) - Toby
+# Made authenticated routing possible + used basic wtforms to set up login, register and logout pages to a week 8 standard. Sorted out pages into their respective folders (creation.html in the templates directory will need to be deleted once we 100% know what the form fields will be, and should replace the creation.html file that's currently in the auctions folder.) You can now navigate via the navbar to the login pages, and to get to the item page go to /auctions/1 in the url. - Toby
 
 # TO-DO: 
 # Defined models.py tables to actually create a database which is needed to store data and display it so we can then make the creation.html page properly as well as login and logout requirements.
