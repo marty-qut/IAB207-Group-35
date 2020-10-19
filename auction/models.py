@@ -16,7 +16,7 @@ class Auction:
 
 # class Watchlist:
 
-class Comment:
+class Watchlist:
     def __init__(self, user, text, created_at):
         self.user = user
         self.text = text

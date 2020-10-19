@@ -1,6 +1,6 @@
 
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField,SubmitField, StringField, PasswordField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
@@ -18,7 +18,11 @@ class AuctionForm(FlaskForm):
   price = StringField('Starting Bid', validators=[InputRequired('A starting bid is required')])
   submit = SubmitField("Create")
   
-class CommentForm(FlaskForm):
+class WatchlistForm(FlaskForm):
+    text = TextAreaField('Comment', validators=[InputRequired('Comment is required'), Length(min=5, max=300, message="Comment is too short or too long")])
+    submit = SubmitField('Add Comment')
+
+class BidForm(FlaskForm):
     text = TextAreaField('Comment', validators=[InputRequired('Comment is required'), Length(min=5, max=300, message="Comment is too short or too long")])
     submit = SubmitField('Add Comment')
 
@@ -32,7 +36,7 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     user_name = StringField("User Name", validators=[InputRequired()])
     email_id = StringField("Email Address", validators=[Email("Please enter a valid email")])
-    
+    seller = BooleanField("Are you a seller?")
     #add buyer/seller - check if it is a buyer or seller hint : Use RequiredIf field
 
 
