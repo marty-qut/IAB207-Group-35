@@ -1,39 +1,46 @@
-{% include "base.html" %}
+{% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-{% block body %}
 
-<div class="page-header">
-    <h4>{{heading}}</h4>
-</div>
-
-
+{% block content %}
 
 <div class="container-fluid">
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    {% for message in get_flashed_messages() %}
-    <div class ="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close">x</button>
-        {{message}}
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h4>{{heading}}</h4>
+                </div>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <!-- check if there are any messages -->
+                <div class="container-fluid">
+                    <div class="row mt-3 mb-3">
+                        <div class="col-md-12">
+                            {% for category, message in messages %}
+                            <!--loop through the messages-->
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                            <!--display as alert-->
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endwith %}
+
+                <!-- Form rendering is simple and easy if using bootstrap -->
+                <div class="col-md-6 ml-5">
+                    {{wtf.quick_form(form)}}
+                </div>
+
+                <!-- When you have login form, then do show the user a link to register -->
+                {% if heading|lower =='login' %}
+                <div class="col-md-4 mb-5 ml-5">
+                    <p>New user? <a href="{{ url_for('auth.register') }}">Click here to register</a>.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    {% endfor %}
-{% endif %}
-{% endwith %}
-
 </div>
-
-
-
-<!-- Form rendering is simple and easy if using bootstrap -->
-<div class="col-md-6">
-{{wtf.quick_form(form)}}
-</div>
-
-<!-- When you have login form, then do show the user a link to register -->
-{% if heading|lower =='login' %}
-<div class="col-md-4">
-    <p>New user? <a href="{{ url_for('register') }}">Click here to register</a>.</p>
-</div>
-{% endif %}
-
 {% endblock %}
