@@ -52,8 +52,8 @@
                     {% endif %} 
                 </ul>
                 
-                <form class="form-inline my-2 my-lg-0">
-                    <select class="form-control mr-sm-2" id="phones" placeholder="Search" aria-label="Search">
+                <form class="form-inline my-2 my-lg-0" action="{{url_for('main.search')}}">
+                    <select class="form-control mr-sm-2" id="phones" name="search" placeholder="Search" aria-label="Search">
                         <option value="/">Search...</option>
                         <option value="Samsung">Samsung</option>
                         <option value="Nokia">Nokia</option>

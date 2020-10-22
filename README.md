@@ -16,6 +16,9 @@
 # 21/10
 # Everything is in place for a basic working website once the sql file is created (hopefully it just works) - Toby
 
+# 22/10
+# Database is initialised and all basic routings and login systems work. Search functions work. Item creation and page generation works. Landing page should automatically update as you add more listings. Quite a few HTML inconsistencies and weirdness but that's not too pressing right now. - Toby
+
 # TO-DO: 
 # Defined models.py tables to actually create a database which is needed to store data and display it so we can then make the creation.html page properly as well as login and logout requirements.
 # Custom item page that doesn't hard-code it's content.

@@ -62,6 +62,7 @@ def register():
         return render_template('user.html', form=register_form_instance, heading='Register')
 
 @bp.route('/logout')
+@login_required
 def logout():
     session.clear()
     return render_template('authentication/logout.html')

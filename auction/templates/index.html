@@ -1,80 +1,27 @@
 {% extends 'base.html' %}
 
-    {% block content %}
- <div class="ml-3"><h2 style="width: 18rem;">Featured</h2></div>
+{% block content %}
 
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="card" style="width: 10rem;">
-            <br>
-            <img src="..\static\note20ultragold.jfif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Samsung Galaxy Note20 Ultra 5G 256GB Bronze</h5>
-              <p class="card-text">Current bid: <br><i>$1201</i></p>
-              <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-              <a href="GalaxyNote20.html" class="btn btn-primary">Check Phone</a>
-            </div>
-          </div>
-      
-        </div>
-        <div class="col">
-          <div class="card" style="width: 10rem;">
-            <br>
-            <img src="..\static\googlepixel4white.jfif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Google Pixel 4 64GB Clearly White<br><br></h5>
-              <p class="card-text">Current bid: <br><i>$400</i></p>
-              <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-              <a href="GooglePixel4.html" class="btn btn-primary">Check Phone</a>
-            </div>
-          </div>
-      
-        </div>
-        <div class="col">
-          <div class="card" style="width: 10rem;">
-            <br>
-            <img src="..\static\iphonexrblack.jfif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">iPhone XR 64GB <br> Black<br><br><br></h5>
-              <p class="card-text">Current bid: <br><i>$600</i></p>
-              <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-              <a href="iPhone XR.html" class="btn btn-primary">Check Phone</a>
-            </div>
-          </div>
+<div class="ml-3">
+    <h2 style="width: 18rem;">Featured</h2>
+  </div>
 
-
-        </div>
-        <div class="col">
-          <div class="card" style="width: 10rem;">
-            <br>
-            <img src="..\static\iphoneseblack.jfif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">iPhone SE 64GB <br> Black<br><br><br></h5>
-              <p class="card-text">Current bid: <br><i>$600</i></p>
-              <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-              <a href="iPhoneSE.html" class="btn btn-primary">Check Phone</a>
-            </div>
-          </div>
-      
-        </div>
-        <div class="col">
-          <div class="card" style="width: 10rem;">
-            <br>
-            <img src="..\static\samsunga71black.jfif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Samsung Galaxy A71 64gb Black <br><br><br></h5>
-              <p class="card-text">Current bid: <br><i>$600</i></p>
-              <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-              <a href="samsunga71.html" class="btn btn-primary">Check Phone</a>
-            </div>
-          </div>
-      
+  {% if auctions %}
+  <!-- Flask Batching -->
+  <div class="container">
+    <div class="row">
+      {% for auction in auctions %}
+      <div class="card">
+        <img class="card-img-top" src="{{auction.image}}" alt="{{auction.name}}" style="max-width: 190px">
+        <div class="card-body">
+          <h5 class="card-title">{{auction.name}}</h5>
+          <p class="card-text">Current Bid: ${{auction.bids}}</p>
+          <a href="{{url_for('auction.listing', id=auction.id)}}" class="btn btn-danger mb-2">View Details</a>
+          <p class="card-text"><small class="text-muted">{{auction.bids|length}} Bid(s)</small></p>
         </div>
       </div>
+      {% endfor %}
     </div>
-
-    <div>
-      <br>
-    </div>
-    {% endblock %}
+    {% endif %}
+  </div>
+  {% endblock %}

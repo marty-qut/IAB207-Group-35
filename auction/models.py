@@ -45,7 +45,7 @@ class Bid(db.Model):
     #watchlist_id = db.Column(db.Integer, db.ForeignKey('watchlist.id'))
 
     def __repr__(self):
-        return "<Bid: {}>".format(self.text)
+        return "{}".format(self.text)
 
 
 #class Watchlist(db.Model):

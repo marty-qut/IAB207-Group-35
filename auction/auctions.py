@@ -15,6 +15,7 @@ def listing(id):
     return render_template('auctions/listing.html', auction=auction, form=bid_form_instance)
 
 @bp.route('/<id>/bid', methods=['GET', 'POST'])
+@login_required
 def bid(id):
     bid_form_instance = BidForm()
     auction_obj = Auction.query.filter_by(id=id).first()
@@ -39,6 +40,7 @@ def check_upload_file(form):
   return db_upload_path
 
 @bp.route('/sell', methods=['GET', 'POST'])
+@login_required
 def create():
   auction_form_instance = AuctionForm()
   if auction_form_instance.validate_on_submit():
