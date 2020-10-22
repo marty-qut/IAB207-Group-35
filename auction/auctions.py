@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect, flash
 from .models import Auction, Bid
 from .forms import AuctionForm, BidForm
 from flask_login import login_required, current_user
@@ -27,6 +27,7 @@ def bid(id):
         
         db.session.add(bid)
         db.session.commit()
+    
     return redirect(url_for('auction.listing', id=id))
 
 def check_upload_file(form):

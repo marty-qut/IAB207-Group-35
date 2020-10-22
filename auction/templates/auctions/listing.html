@@ -15,8 +15,8 @@
               <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
               <br>
 
-              {% for bid in auction.bids %}
-              <p class="card-text">Current bid: <br> $ {{ bid.text }} </p>
+              {% for bid in auction.bids[-1:] %}
+              <p class="card-text">Current bid: <br> ${{ bid.text }} by {{ bid.user.name }}</p>
               {% endfor %}
               <p class="card-text"><b>Place Bid</b></p>
               <div class="input-group mb-3">
@@ -44,7 +44,7 @@
                 {{ wtf.quick_form(form, "/auctions/{0}/bid".format(auction.id)) }}
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
     
             </div>
         </div>

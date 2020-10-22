@@ -5,7 +5,7 @@ from wtforms.validators import InputRequired, Length, Email, EqualTo
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
 ALLOWED_FILE = {'png', 'jpg', 'JPG', 'PNG'}
-Phone_Choices = [("Samsung"), ("Nokia"), ("Apple",), ("Huawei"), ("HTC"), ("Sony"), ("Other")]
+Phone_Choices = [("Samsung"), ("Nokia"), ("Apple"), ("Huawei"), ("HTC"), ("Sony"), ("Other")]
 
 class AuctionForm(FlaskForm):
   model = SelectField('Device Make', choices=Phone_Choices)
