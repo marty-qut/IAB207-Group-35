@@ -16,7 +16,7 @@ class AuctionForm(FlaskForm):
   image = FileField('Item Image', validators=[
                     FileRequired(message='Image cannot be empty'),
                     FileAllowed(ALLOWED_FILE, message='Only supports valid filetypes')])
-  price = IntegerField('Bid', validators=[InputRequired('A bid is required to submit'), Length(max=10, message="Bid too much")])
+  #price = IntegerField('Bid', validators=[InputRequired('A bid is required to submit'), Length(max=10, message="Bid too much")])
   submit = SubmitField("Create")
   
 class WatchlistForm(FlaskForm):

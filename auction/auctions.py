@@ -10,9 +10,9 @@ bp = Blueprint('auction', __name__, url_prefix = '/auctions')
 
 @bp.route('/<id>')
 def listing(id):
-    #auction = Auction.query.filter_by(id=id).first()
-    #bid_form_instance = BidForm()
-    return render_template('auctions/listing.html') #, auction=auction, form=bid_form_instance)
+    auction = Auction.query.filter_by(id=id).first()
+    bid_form_instance = BidForm()
+    return render_template('auctions/listing.html', auction=auction, form=bid_form_instance)
 
 @bp.route('/<id>/bid', methods=['GET', 'POST'])
 def bid(id):
@@ -48,7 +48,8 @@ def create():
     auction = Auction(model=auction_form_instance.model.data,   
                               name=auction_form_instance.name.data,
                               description=auction_form_instance.description.data,
-                              image=db_file_path)
+                              image=db_file_path,
+                              user=current_user)
 
     db.session.add(auction)
     db.session.commit()

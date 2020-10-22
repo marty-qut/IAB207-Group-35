@@ -35,13 +35,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('main.watchlist')}}">Watchlist</a>
                     </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{ current_user.name  }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('auth.logout')}}">Logout</a>
+                    </li>
+                    {% else %} 
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('auth.login')}}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('auth.register')}}">Register</a>
                     </li>
+                    {% endif %} 
                 </ul>
+                
                 <form class="form-inline my-2 my-lg-0">
                     <select class="form-control mr-sm-2" id="phones" placeholder="Search" aria-label="Search">
                         <option value="/">Search...</option>
