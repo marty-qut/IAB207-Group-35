@@ -1,56 +1,88 @@
-from . import db
-from datetime import datetime
-from flask_login import UserMixin
+# class Profile
 
-
-class User(db.Model, UserMixin):
-    __tablename__='users' # good practice to specify table name
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    emailid = db.Column(db.String(100), index=True, nullable=False)
-	#password is never stored in the DB, an encrypted password is stored
-	# the storage should be at least 255 chars long
-    password_hash = db.Column(db.String(255), nullable=False)
-
-    # relation to call user.comments and comment.created_by
-    bids = db.relationship('Bid', backref='user')
-
-
-class Auction(db.Model):
-    __tablename__ = 'auctions'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
-    model = db.Column(db.String(80))
-    description = db.Column(db.String(200))
-    image = db.Column(db.String(400))
-    # ... Create the Comments db.relationship
-	# relation to call destination.comments and comment.destination
-    bids = db.relationship('Bid', backref='auction')
-    #add the foreign key
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-	
-    def __repr__(self): #string print method
-        return "<Name: {}>".format(self.name)
-
-class Bid(db.Model):
-    __tablename__ = 'bids'
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(400))
-    created_at = db.Column(db.DateTime, default=datetime.now())
-    #add the foreign keys
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    auction_id = db.Column(db.Integer, db.ForeignKey('auctions.id'))
+class Profile:
+    def __init__(self, user_id, name, email, password, date_joined):
+        self.id = user_id
+        self.name = name
+        self.email = email
+        self.password = password
+        self.date_joined = date_joined
 
     def __repr__(self):
-        return "<Bid: {}>".format(self.text)
+        str = 'Username: {0} \n Date Joined: {1} '
+        str.format(self.name, self.date_joined)
+        return str
+
+# class Item
+
+class Item:
+    def __init__(self, user_id, item_id, name, description, image):
+        self.owner = user_id
+        self.id = item_id
+        self.name = name
+        self.description = description
+        self.image = image
+
+
+    def __repr__(self):
+        str = 'Name: {0} Currency: {1}'
+        str.format(self.name, self.currency)
+        return str
+
+# class Auction
+
+class Auction:
+    def __init__(self, user_id, item_id, auction_id, name, description, currency):
+        self.owner = user_id
+        self.item = item_id
+        self.id = auction_id
+        self.description = description
+        self.currency = currency
+        self.comments = list()
+
+    def set_comments(self, comment):
+        self.comments.append(comment)
+
+    def __repr__(self):
+        str = 'Auctioned item: {0}\n Price: {1}'
+        str.format(self.name, self.currency)
+        return str
+
+# class Bid
+
+class Bid:
+    def __init__(self, user_id, auction_id, description, currency):
+        self.owner = user_id
+        self.auction = auction_id
+        self.description = description
+        self.currency = currency
+
+    def __repr__(self):
+        str = 'User {0} bid Currency {1} with description {2}'
+        str.format(self.name, self.currency, self.description)
+        return str
+
+# class Comment
+
+class Comment:
+    def __init__(self, user_id, contents, date_added):
+        self.owner = user_id
+        self.contents = contents
+        self.dateadded = date_added
+
+    def __repr__(self):
+        str = '{0} says\n{1}\nOn {2}'
+        str.format(self.name, self.contents, self.dateadded)
+        return str
+
+# class Watchlist:
 
 class Watchlist:
-    def __init__(self, user, text, created_at):
-        self.user = user
-        self.text = text
-        self.created_at = created_at
-    
+    def __init__(self, user_id, item_id):
+        self.user = user_id
+        self.item = item_id
+
     def __repr__(self):
-        str = 'User {0}, \n Text {1}'
-        str.format(self.user, self.text)
+        str = 'User {0} has item {1} watchlisted'
+        str.format(self.user, self.item)
         return str
