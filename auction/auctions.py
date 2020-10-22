@@ -48,8 +48,7 @@ def create():
     auction = Auction(model=auction_form_instance.model.data,   
                               name=auction_form_instance.name.data,
                               description=auction_form_instance.description.data,
-                              image=db_file_path,
-                              user=current_user)
+                              image=db_file_path)
 
     db.session.add(auction)
     db.session.commit()

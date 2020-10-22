@@ -5,7 +5,7 @@ from wtforms.validators import InputRequired, Length, Email, EqualTo
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
 ALLOWED_FILE = {'png', 'jpg', 'JPG', 'PNG'}
-Phone_Choices = [('1',"Samsung"), ('2',"Nokia"), ('3',"Apple",), ('4',"Huawei"), ('5',"HTC"), ('6',"Sony"), ('7',"Other")]
+Phone_Choices = [("Samsung"), ("Nokia"), ("Apple",), ("Huawei"), ("HTC"), ("Sony"), ("Other")]
 
 class AuctionForm(FlaskForm):
   model = SelectField('Device Make', choices=Phone_Choices)
@@ -24,7 +24,7 @@ class WatchlistForm(FlaskForm):
     submit = SubmitField('Add Comment')
 
 class BidForm(FlaskForm):
-    bid = IntegerField('Bid', validators=[InputRequired('A bid is required to submit'), Length(max=10, message="Bid too much")])
+    bid = IntegerField('Bid (in dollars)', validators=[InputRequired('A bid is required to submit')])
     submit = SubmitField('Add Bid')
 
 #creates the login information
