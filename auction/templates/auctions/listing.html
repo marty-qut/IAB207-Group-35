@@ -29,18 +29,18 @@
 
     <div class="card-body">
         <h5 class="card-title">{{ auction.model }} {{ auction.name }}</h5>
-        <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-        <br>
+        <p class="card-text">Listing created by: {{ auction.user.name }}</p>
+
+        {% if auction.bids|length == 0 %}
+        <p class="card-text">Starting price: <br> ${{ auction.starting_bid }}</p>
+        {% endif %}
 
         {% for bid in auction.bids[-1:] %}
         <p class="card-text">Current bid: <br> ${{ bid.text }} by {{ bid.user.name }}</p>
         {% endfor %}
-        <p class="card-text"><b>Place Bid</b></p>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">$</span>
-            </div>
-        </div>
+
+        <p class="card-text">Number of bids: {{auction.bids|length}}</p>
+        <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
 
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BidModal">
@@ -57,12 +57,16 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    {% for bid in auction.bids[-1:] %}
                     <div class="modal-body">
+                        {% if auction.bids|length == 0 %}
+                        <h6>Starting price: ${{ auction.starting_bid }}</h6>
+                        {% endif %}
+                        
+                        {% for bid in auction.bids[-1:] %}
                         <h6>Current bid: ${{ bid.text }} by {{ bid.user.name }}</h6>
+                        {% endfor %}
                         {{ wtf.quick_form(form, "/auctions/{0}/bid".format(auction.id)) }}
                     </div>
-                    {% endfor %}
                     <div class="modal-footer">
 
 

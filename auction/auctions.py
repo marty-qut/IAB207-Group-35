@@ -20,10 +20,17 @@ def bid(id):
     bid_form_instance = BidForm()
     auction_obj = Auction.query.filter_by(id=id).first()
 
-    last_bid = db.session.query(Bid.text).filter_by(auction_id=id).order_by(Bid.id.desc()).first()
-    last_bid = str(last_bid )
-    last_bid = last_bid.translate({ord(i): None for i in "(),''"})
-    last_bid = int(last_bid)
+    if db.session.query(Bid.text).filter_by(auction_id=id).order_by(Bid.id.desc()).first() != None:
+      last_bid = db.session.query(Bid.text).filter_by(auction_id=id).order_by(Bid.id.desc()).first()
+      last_bid = str(last_bid)
+      last_bid = last_bid.translate({ord(i): None for i in "(),''"})
+      last_bid = int(last_bid)
+    else:
+      last_bid = db.session.query(Auction.starting_bid).filter_by(id=id).first()
+      last_bid = str(last_bid)
+      last_bid = last_bid.translate({ord(i): None for i in "(),''"})
+      last_bid = int(last_bid)
+
 
     if bid_form_instance.validate_on_submit():
 
@@ -35,11 +42,13 @@ def bid(id):
 
           db.session.add(bid)
           db.session.commit()
+
           print('form is valid')
 
         else:
           flash('Please bid a value higher than the previous bid', 'info')
-    
+
+    print(db.session.query(Bid.text).filter_by(auction_id=id).order_by(Bid.id.desc()).first())
     return redirect(url_for('auction.listing', id=id))
 
 def check_upload_file(form):
@@ -63,7 +72,9 @@ def create():
     auction = Auction(model=auction_form_instance.model.data,   
                               name=auction_form_instance.name.data,
                               description=auction_form_instance.description.data,
-                              image=db_file_path)
+                              image=db_file_path,
+                              starting_bid=auction_form_instance.starting_bid.data,
+                              user=current_user)
 
     db.session.add(auction)
     db.session.commit()

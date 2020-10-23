@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
 
     # relation to call user.comments and comment.created_by
     bids = db.relationship('Bid', backref='user')
+    auctions = db.relationship('Auction', backref='user')
 
 
 class Auction(db.Model):
@@ -23,6 +24,7 @@ class Auction(db.Model):
     model = db.Column(db.String(80))
     description = db.Column(db.String(200))
     image = db.Column(db.String(400))
+    starting_bid = db.Column(db.String(400))
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
     bids = db.relationship('Bid', backref='auction')

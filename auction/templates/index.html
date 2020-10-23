@@ -2,26 +2,56 @@
 
 {% block content %}
 
-<div class="ml-3">
-    <h2 style="width: 18rem;">Featured</h2>
-  </div>
+<style>
+  /*card styling*/
 
+  .card-text {
+    padding-bottom: 5%; /* padding */
+    padding-left:5%;
+    padding-right:5%;
+  }
+  img {
+        padding-top:5%;
+        padding-bottom:5%;
+        width: 100%;
+  }
+  </style>
+<div class="ml-3">
+  <h2 style="width: 18rem;">Featured</h2>
+</div>
+
+<div class="container">
   {% if auctions %}
   <!-- Flask Batching -->
-  <div class="container">
+  <div class="card-deck mb-3">
     <div class="row">
       {% for auction in auctions %}
       <div class="card">
         <img class="card-img-top" src="{{auction.image}}" alt="{{auction.name}}" style="max-width: 190px">
         <div class="card-body">
-          <h5 class="card-title">{{auction.model}}</h5>
-          <h5 class="card-title">{{auction.name}}</h5>
+          <h5 class="card-title">{{auction.model}} {{auction.name}}</h5>
+
+          {% if auction.bids|length == 0 %}
+          <p class="card-text">Starting price: ${{ auction.starting_bid }}</p>
+          {% else %}
           <p class="card-text">Current Bid: ${{auction.bids|last}}</p>
+          {% endif %}
+
           <a href="{{url_for('auction.listing', id=auction.id)}}" class="btn btn-primary mb-2">View Details</a>
+
+          {% if auction.bids|length == 1 %}
+          <p class="card-text"><small class="text-muted">{{auction.bids|length}} Bid</small></p>
+          {% elif auction.bids|length > 1 %}
+          <p class="card-text"><small class="text-muted">{{auction.bids|length}} Bids</small></p>
+          {% elif auction.bids|length == 0 %}
+          <p class="card-text"><small class="text-muted">0 Bids</small></p>
+          {% endif %}
+
         </div>
       </div>
       {% endfor %}
     </div>
-    {% endif %}
   </div>
+    {% endif %}
+</div>
   {% endblock %}

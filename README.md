@@ -21,10 +21,11 @@
 
 # 23/10
 # A few of the bidding requirements have been fulfilled, namely only the latest bid can be seen and you have to bid higher than the previous bid.
+# (had local changes and it wouldn't let me pull the styling stephen made so I had to copy paste it from the repositry to my local instance, sorry!)
+# A few more bidding requirements fulfilled and a couple bugs fixed that I didn't notice the first time around with bidding
 
 # TO-DO: 
-# Everything to do with the watchlist
-# Seller is able to determine the starting bid, but cannot bid on the item itself afterwards
-# Making only the seller be able to close an auction
+# Everything to do with the watchlist (the database model for it isn't even there yet)
+# Seller cannot bid on the item they created, and can close their auction which prevents adding to watchlist and bidding by other users.
 # Error handling (probably should be it's own page that you get redirected to for the larger errors like a 404 not found, otherwise a bunch of if statements I suppose)
 # Make the site look nice and not a jumbled mess of widgets :)
