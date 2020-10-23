@@ -35,6 +35,7 @@
           {% else %}
           <p class="card-text">Current Bid: ${{auction.bids|last}}</p>
           {% endif %}
+          <!--IF statements to test if there are any entries in the bids table - if there aren't the starting bid is used, and if there are the latest bid is used-->
 
           <a href="{{url_for('auction.listing', id=auction.id)}}" class="btn btn-primary mb-2">View Details</a>
 
@@ -45,6 +46,7 @@
           {% elif auction.bids|length == 0 %}
           <p class="card-text"><small class="text-muted">0 Bids</small></p>
           {% endif %}
+          <!--Bunch of IF statements to show the plural of the word "bid" or lack thereof, and a flat 0-->
 
         </div>
       </div>

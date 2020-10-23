@@ -37,7 +37,6 @@ def login(): #view function
             flash(error, 'danger')
     return render_template('user.html', form=login_form, heading='Login')
 
-
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     register_form_instance = RegisterForm()

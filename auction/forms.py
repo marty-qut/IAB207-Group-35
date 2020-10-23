@@ -12,17 +12,16 @@ class AuctionForm(FlaskForm):
   name = StringField('Phone Name', validators=[InputRequired('Field is required')])
   #adding two validators, one to ensure input is entered and other to check if the description meets the length requirements
   description = TextAreaField('Description', validators=[InputRequired('Field is required'), Length(min=10, max=300, message="Description is too short or too long")])
-  #image = StringField('Cover Image', validators=[InputRequired('Image is required')])
   image = FileField('Item Image', validators=[
                     FileRequired(message='Image cannot be empty'),
                     FileAllowed(ALLOWED_FILE, message='Only supports valid filetypes')])
-  #price = IntegerField('Bid', validators=[InputRequired('A bid is required to submit'), Length(max=10, message="Bid too much")])
   starting_bid = IntegerField('Starting Bid (in dollars)', validators=[InputRequired('A starting bid is required')])
   submit = SubmitField("Create")
   
 class WatchlistForm(FlaskForm):
     text = TextAreaField('Comment', validators=[InputRequired('Comment is required'), Length(min=5, max=300, message="Comment is too short or too long")])
     submit = SubmitField('Add Comment')
+    # not actually being used
 
 class BidForm(FlaskForm):
     bid = IntegerField('Bid (in dollars)', validators=[InputRequired('A bid is required to submit')])
