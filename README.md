@@ -19,11 +19,13 @@
 # 22/10
 # Database is initialised and all basic routings and login systems work. Search functions work. Item creation and page generation works. Landing page should automatically update as you add more listings. Quite a few HTML inconsistencies and weirdness but that's not too pressing right now. - Toby
 
+# 23/10
+# A few of the bidding requirements have been fulfilled, namely only the latest bid can be seen and you have to bid higher than the previous bid.
+
 # TO-DO: 
-# Defined models.py tables to actually create a database which is needed to store data and display it so we can then make the creation.html page properly as well as login and logout requirements.
-# Custom item page that doesn't hard-code it's content.
 # Custom watchlist page (this should be similar to a comments section in terms of creating it).
 # A way to limit the bid input only being higher than the previous bid
-# A way to add to a users personal watchlist
+# Everything to do with the watchlist
 # Making only the seller be able to close an auction
-# Close auction?
+# Error handling (probably should be it's own page that you get redirected to for the larger errors, otherwise a bunch of if statements I suppose)
+# Make the site look nice and not a jumbled mess of widgets :)

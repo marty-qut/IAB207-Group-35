@@ -49,7 +49,7 @@ def register():
 
         if u:
             flash('This username already exists, please login!', 'info')
-            return redirect(url_for('authentication.login'))
+            return redirect(url_for('auth.login'))
 
         pwd_hash = generate_password_hash(pwd) 
         new_user = User(name=username, emailid=email, password_hash=pwd_hash)

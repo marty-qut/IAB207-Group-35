@@ -24,7 +24,7 @@ class WatchlistForm(FlaskForm):
     submit = SubmitField('Add Comment')
 
 class BidForm(FlaskForm):
-    bid = IntegerField('Bid (in dollars)', validators=[InputRequired('A bid is required to submit')])
+    bid = IntegerField('Bid (in dollars)', validators=[InputRequired()])
     submit = SubmitField('Add Bid')
 
 #creates the login information

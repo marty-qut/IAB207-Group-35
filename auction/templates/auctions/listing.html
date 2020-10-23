@@ -1,93 +1,114 @@
-{% extends 'base.html' %}  
+{% extends 'base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
 
-{{x}} 
-    <!-- Listing --> 
-    <div class="row">
-        <div class="card" style="width: 50rem;">
-          <img src={{ auction.image }} class="card-img-center" alt="..." style="max-width: 450px;">
-          </div>
-          
-          <div class="card-body">
-              <h5 class="card-title">{{ auction.model }} {{ auction.name }}</h5>
-              <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-              <br>
+{{x}}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<!-- check if there are any messages -->
+<div class="container-fluid">
+    <div class="row mt-3 mb-3">
+        <div class="col-md-12">
+            {% for category, message in messages %}
+            <!--loop through the messages-->
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            <!--display as alert-->
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endwith %}
 
-              {% for bid in auction.bids[-1:] %}
-              <p class="card-text">Current bid: <br> ${{ bid.text }} by {{ bid.user.name }}</p>
-              {% endfor %}
-              <p class="card-text"><b>Place Bid</b></p>
-              <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">$</span>
-                  </div>
+<!-- Listing -->
+<div class="row">
+    <div class="card" style="width: 50rem;">
+        <img src={{ auction.image }} class="card-img-center" alt="..." style="max-width: 450px;">
+    </div>
+
+    <div class="card-body">
+        <h5 class="card-title">{{ auction.model }} {{ auction.name }}</h5>
+        <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
+        <br>
+
+        {% for bid in auction.bids[-1:] %}
+        <p class="card-text">Current bid: <br> ${{ bid.text }} by {{ bid.user.name }}</p>
+        {% endfor %}
+        <p class="card-text"><b>Place Bid</b></p>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+            </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BidModal">
+            Bid
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="BidModal" tabindex="-1" aria-labelledby="BidModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="BidModalLabel">Place a Bid</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% for bid in auction.bids[-1:] %}
+                    <div class="modal-body">
+                        <h6>Current bid: ${{ bid.text }} by {{ bid.user.name }}</h6>
+                        {{ wtf.quick_form(form, "/auctions/{0}/bid".format(auction.id)) }}
+                    </div>
+                    {% endfor %}
+                    <div class="modal-footer">
+
+
+                    </div>
                 </div>
-                
-                 <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BidModal">
-                Bid
-              </button> 
-              
-    <!-- Modal -->
-    <div class="modal fade" id="BidModal" tabindex="-1" aria-labelledby="BidModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="BidModalLabel">Place a Bid</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                {{ wtf.quick_form(form, "/auctions/{0}/bid".format(auction.id)) }}
-            </div>
-            <div class="modal-footer">
-            
-    
             </div>
         </div>
-        </div>
-    </div>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#WatchlistModal">
-    Add to Watchlist
-    </button>
-  
-    <!-- Modal -->
-    <div class="modal fade" id="WatchlistModal" tabindex="-1" aria-labelledby="WatchlistModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="WatchlistModalLabel">Added to Watchlist</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-            This item has been added to your Watchlist.
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    
-            </div>
-        </div>
-        </div>
-    </div>
-    
-    
-        </div>
-    </div>
-    
-    <div class="card">
-        <div class="card-body">
-            {{ auction.description }}
-        </div>
-        </div>
-   
- 
-    <hr>  
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#WatchlistModal">
+            Add to Watchlist
+        </button>
 
-{% endblock %}  
+        <!-- Modal -->
+        <div class="modal fade" id="WatchlistModal" tabindex="-1" aria-labelledby="WatchlistModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="WatchlistModalLabel">Added to Watchlist</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        This item has been added to your Watchlist.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {{ auction.description }}
+    </div>
+</div>
+
+
+<hr>
+
+{% endblock %}

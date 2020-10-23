@@ -19,14 +19,26 @@ def listing(id):
 def bid(id):
     bid_form_instance = BidForm()
     auction_obj = Auction.query.filter_by(id=id).first()
+
+    last_bid = db.session.query(Bid.text).filter_by(auction_id=id).order_by(Bid.id.desc()).first()
+    last_bid = str(last_bid )
+    last_bid = last_bid.translate({ord(i): None for i in "(),''"})
+    last_bid = int(last_bid)
+
     if bid_form_instance.validate_on_submit():
 
-        bid = Bid(text=bid_form_instance.bid.data,
-                          auction=auction_obj,
-                          user=current_user)
-        
-        db.session.add(bid)
-        db.session.commit()
+        if bid_form_instance.bid.data > last_bid:
+
+          bid = Bid(text=bid_form_instance.bid.data,
+                                auction=auction_obj,
+                                user=current_user)
+
+          db.session.add(bid)
+          db.session.commit()
+          print('form is valid')
+
+        else:
+          flash('Please bid a value higher than the previous bid', 'info')
     
     return redirect(url_for('auction.listing', id=id))
 
