@@ -21,7 +21,6 @@
 
 # 23/10
 # A few of the bidding requirements have been fulfilled, namely only the latest bid can be seen and you have to bid higher than the previous bid.
-# (had local changes and it wouldn't let me pull the styling stephen made so I had to copy paste it from the repositry to my local instance, sorry!)
 # A few more bidding requirements fulfilled and a couple bugs fixed that I didn't notice the first time around with bidding
 
 # TO-DO: 
