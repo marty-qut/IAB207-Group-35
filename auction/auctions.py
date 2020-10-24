@@ -48,8 +48,9 @@ def bid(id):
 
         else:
           flash('Please bid a value higher than the previous bid', 'info')
-
-    print(db.session.query(Bid.text).filter_by(auction_id=id).order_by(Bid.id.desc()).first())
+    else:
+      flash('Please enter a number for your bid', 'info')
+      
     return redirect(url_for('auction.listing', id=id))
 
 def check_upload_file(form):

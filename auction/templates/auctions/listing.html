@@ -43,10 +43,39 @@
         <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BidModal">
-            Bid
+        {% if current_user == auction.user %}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ViewModal">
+            View all bids
         </button>
 
+             <!-- Modal -->
+             <div class="modal fade" id="ViewModal" tabindex="-1" aria-labelledby="BidModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="BidModalLabel">View Bids</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        {% if auction.bids|length ==0 %}
+                            <h6>No bids yet!</h6>
+                        {% else %}
+                            {% for bid in auction.bids %}
+                            <h6>${{ bid.text }} by {{ bid.user.name }}</h6>
+                            {% endfor %}
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        {% else %}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BidModal">
+            Place a Bid
+        </button>
+        
         <!-- Modal -->
         <div class="modal fade" id="BidModal" tabindex="-1" aria-labelledby="BidModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -67,15 +96,36 @@
                         {% endfor %}
                         {{ wtf.quick_form(form, "/auctions/{0}/bid".format(auction.id)) }}
                     </div>
-                    <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
+        {% if current_user == auction.user %}
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CloseModal">
+            Close Auction
+        </button>
 
+        <!-- Modal -->
+        <div class="modal fade" id="CloseModal" tabindex="-1" aria-labelledby="CloseModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="WatchlistModalLabel">Close Auction</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to close this auction?
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Button trigger modal -->
+        
+        {% else %}
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#WatchlistModal">
             Add to Watchlist
         </button>
@@ -86,7 +136,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="WatchlistModalLabel">Added to Watchlist</h5>
+                        <h5 class="modal-title" id="WatchlistModalLabel">Add to Watchlist</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -94,15 +144,10 @@
                     <div class="modal-body">
                         This item has been added to your Watchlist.
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                    </div>
                 </div>
             </div>
         </div>
-
-
+        {% endif %}
     </div>
 </div>
 

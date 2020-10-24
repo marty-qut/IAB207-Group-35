@@ -23,8 +23,11 @@
 # A few of the bidding requirements have been fulfilled, namely only the latest bid can be seen and you have to bid higher than the previous bid.
 # A few more bidding requirements fulfilled and a couple bugs fixed that I didn't notice the first time around with bidding
 
+# 24/10
+# Everything in the bidding requirements except for closing the auction is now done.
+
 # TO-DO: 
 # Everything to do with the watchlist (the database model for it isn't even there yet)
-# Seller cannot bid on the item they created, and can close their auction which prevents adding to watchlist and bidding by other users.
+# Closing an auction
 # Error handling (probably should be it's own page that you get redirected to for the larger errors like a 404 not found, otherwise a bunch of if statements I suppose)
 # Make the site look nice and not a jumbled mess of widgets :)
