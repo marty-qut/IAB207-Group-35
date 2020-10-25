@@ -14,20 +14,68 @@
 </head>
 <!--CSS-->
 <style>
-    a {
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /*Center Objects*/
+    .center {
+        margin-right: auto; /* Margin adjustment*/
+        margin-left: auto; /* Margin adjustment*/
     }
+    h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size:xx-large;
+        color: white;
+    }
+    h2{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size:large;
+        color: white;
+    }
+    h3{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: medium;
+        text-align: center;
+
+    }
+    nav ul {
+        background-color: rgb(30, 205, 224); /* color adjustment */
+
+    }
+    nav li a:hover {
+        background-color: rgb(142, 240, 235); /* color adjustment */
+   }
+    nav h1 {
+        background-color: rgb(30, 205, 224); /* color adjustment */
+
+    }
+    nav {
+        background-color: rgb(30, 205, 224); /* color adjustment */
+    }
+    div ul li a {
+        background-color: rgb(30, 205, 224); /* color adjustment */
+
+    }
+    footer{
+        background-color: rgb(30, 205, 224); /* color adjustment */
+        color: White; /* color adjustment */
+        padding-top: 2%;
+        padding-bottom: 2%;
+
+    }   
 
 
 </style>
+
 <body>
 
     <!-- Header -->
     <header class="bg-light border-bottom">
 
         <!-- Nav Bar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{{url_for('main.index')}}">Phone Bid</a>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="{{url_for('main.index')}}">
+                <h1>
+                    Phone Bid
+                </h1>    
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -36,27 +84,33 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('auction.create')}}">Sell<span
+                        <a class="nav-link" href="{{url_for('auction.create')}}"><h2>Sell</h2><span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('main.watchlist')}}">Watchlist</a>
+                        <a class="nav-link" href="{{url_for('main.watchlist')}}"><h2>Watchlist</h2></a>
                     </li>
-                    {% if current_user.is_authenticated %}
+                        <h2>
+                            {% if current_user.is_authenticated %}
+                        </h2>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{{ current_user.name  }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('auth.logout')}}">Logout</a>
-                    </li>
-                    {% else %} 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('auth.login')}}">Login</a>
+                        <a class="nav-link" href="#"><h2>{{ current_user.name  }}</h2></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('auth.register')}}">Register</a>
+                        <a class="nav-link" href="{{url_for('auth.logout')}}"><h2>Logout</h2></a>
                     </li>
-                    {% endif %} 
+                        <h2>
+                            {% else %} 
+                        </h2>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('auth.login')}}"><h2>Login</h2></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('auth.register')}}"><h2>Register</h2></a>
+                    </li>
+                    <h2>
+                        {% endif %} 
+                    </h2>
                 </ul>
                 
                 <form class="form-inline my-2 my-lg-0" action="{{url_for('main.search')}}">
@@ -86,9 +140,11 @@
 
     <br>
     <footer class="footer">
-        <div class="text-center py-2 bg-light">
-            <span class="text-dark">Copyright &copy; 2020</span>
-        </div>
+            <span>
+                <h3 class="center">
+                    Copyright &copy; 2020
+                </h3>
+            </span>
     </footer>
 
     <!-- Optional JavaScript -->
