@@ -36,6 +36,7 @@ def login(): #view function
         else:
             flash(error, 'danger')
     return render_template('user.html', form=login_form, heading='Login')
+# If someone wants to try get the nextp stuff working, that'd be nice - I couldn't get it to work
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():

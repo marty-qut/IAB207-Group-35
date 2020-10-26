@@ -47,9 +47,9 @@ def bid(id):
           print('form is valid')
 
         else:
-          flash('Please bid a value higher than the previous bid', 'info')
+          flash('Please bid a value higher than the previous bid', 'info') # When the user tries to enter a bid number lower than the latest stored bid
     else:
-      flash('Please enter a number for your bid', 'info')
+      flash('Please enter a number for your bid', 'info') # When the user tries to enter anything that isn't accepted by the flaskform
       
     return redirect(url_for('auction.listing', id=id))
 
