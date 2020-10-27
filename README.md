@@ -27,9 +27,9 @@
 # Everything in the bidding requirements except for closing the auction is now done.
 
 # 27/10
-# Closing an auction is now possible. I'm not exactly sure how a watchlist is going to work considering how forms are rendered on pages (the bidding form takes up that slot for any user that didn't create their respective listing).
+# Closing an auction is now possible.
 
 # TO-DO: 
-# Everything to do with the watchlist (the database model for it isn't even there yet)
+# Almost everything to do with the watchlist
 # Error handling (probably should be it's own page that you get redirected to for the larger errors like a 404 not found, otherwise a bunch of if statements I suppose)
 # Make the site look nice and not a jumbled mess of widgets :)

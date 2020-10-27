@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
     {% block content %}
@@ -9,39 +10,38 @@
         width: 100%; /*Image width*/
   }
   </style>
-    
-       <!-- Watchlist Section -->
-    <div class="page-header">
-        <h4>Watchlist</h4>
-    </div>
 
-    <div class="container">
-      {% if auctions %}
-      <div class="row">
-        {% for auction in auctions %}
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <br>
-            <img class="card-img-top" src="{{auction.image}}" alt="{{auction.name}}" style="max-width: 170px">
-            <div class="card-body">
-              <h5 class="card-title">{{auction.model}} {{auction.name}}</h5>
-              <p class="card-text">Date added: ${{datetime.now}}</p>
-              <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-              
-              {% if auction.bids|length == 0 %}
-              <p class="card-text">Starting price: ${{ auction.starting_bid }}</p>
-              {% elif auction.bids|length != 0 and auction.auction_status == None %}
-              <p class="card-text">Current Bid: ${{auction.bids|last}}</p>
-              {% elif auction.bids|length != 0 and auction.auction_status != None %}
-              <p class="card-text">Winning Bid: ${{auction.bids|last}}</p>
-              {% endif %}
+   <!-- Watchlist Section -->
+<div class="page-header">
+    <h4>Watchlist</h4>
+</div>
 
-              <a href="#" class="btn btn-primary">Check Phone</a>
-            </div>
-          </div>
-        {% endfor %}
+<div class="container">
+  {% if auctions %}
+  <div class="row">
+    {% for auction in auctions %}
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+        <br>
+        <img class="card-img-top" src="{{auction.image}}" alt="{{auction.name}}" style="max-width: 170px">
+        <div class="card-body">
+          <h5 class="card-title">{{auction.model}} {{auction.name}}</h5>
+          <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
+          
+          {% if auction.bids|length == 0 %}
+          <p class="card-text">Starting price: ${{ auction.starting_bid }}</p>
+          {% elif auction.bids|length != 0 and auction.auction_status == None %}
+          <p class="card-text">Current Bid: ${{auction.bids|last}}</p>
+          {% elif auction.bids|length != 0 and auction.auction_status != None %}
+          <p class="card-text">Winning Bid: ${{auction.bids|last}}</p>
+          {% endif %}
+
+          <a href="#" class="btn btn-primary">Check Phone</a>
         </div>
       </div>
-      {% endif %}
+    {% endfor %}
     </div>
+  </div>
+  {% endif %}
+</div>
 {% endblock %}

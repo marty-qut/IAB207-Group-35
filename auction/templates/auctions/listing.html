@@ -157,7 +157,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        This item has been added to your Watchlist.
+                        Are you sure you want to add this listing to your watchlist?
+                        {{ wtf.quick_form(form3, "/auctions/{0}/add".format(auction.id)) }}
                     </div>
                 </div>
             </div>
