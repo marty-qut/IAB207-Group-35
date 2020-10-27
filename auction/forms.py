@@ -16,25 +16,25 @@ class AuctionForm(FlaskForm):
                     FileRequired(message='Image cannot be empty'),
                     FileAllowed(ALLOWED_FILE, message='Only supports valid filetypes')])
   starting_bid = IntegerField('Starting Bid (in dollars)', validators=[InputRequired('A starting bid is required')])
-  submit = SubmitField("Create")
+  submit1 = SubmitField("Create")
   
 class CloseForm(FlaskForm):
-    submit = SubmitField('Close Listing')
+    submit2 = SubmitField('Close Listing')
 
 class WatchlistForm(FlaskForm):
     text = TextAreaField('Comment', validators=[InputRequired('Comment is required'), Length(min=5, max=300, message="Comment is too short or too long")])
-    submit = SubmitField('Add Comment')
+    submit3 = SubmitField('Add Comment')
     # not actually being used
 
 class BidForm(FlaskForm):
     bid = IntegerField('Bid (in dollars)', validators=[InputRequired('A bid is required to submit')])
-    submit = SubmitField('Add Bid')
+    submit4 = SubmitField('Add Bid')
 
 #creates the login information
 class LoginForm(FlaskForm):
     user_name=StringField("Username", validators=[InputRequired('Enter Username')])
     password=PasswordField("Password", validators=[InputRequired('Enter Password')])
-    submit = SubmitField("Login")
+    submit5 = SubmitField("Login")
 
  # this is the registration form
 class RegisterForm(FlaskForm):
@@ -51,4 +51,4 @@ class RegisterForm(FlaskForm):
     confirm = PasswordField("Confirm Password")
 
     #submit button
-    submit = SubmitField("Register")
+    submit6 = SubmitField("Register")

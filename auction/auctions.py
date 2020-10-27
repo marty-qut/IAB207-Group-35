@@ -12,14 +12,10 @@ bp = Blueprint('auction', __name__, url_prefix = '/auctions')
 def listing(id):
     auction = Auction.query.filter_by(id=id).first()
 
-    if auction.user == current_user:
-      form_instance = CloseForm()
-    else:
-      form_instance = BidForm()
-    # Works out which form is needed - if the user created the listing, they get the close auction form, otherwise the bidding form is presented.
-    # Still not sure how a watchlist form is going to work, since the user form will be the bidding form. 
+    close_form_instance = CloseForm()
+    bid_form_instance = BidForm()
 
-    return render_template('auctions/listing.html', auction=auction, form=form_instance)
+    return render_template('auctions/listing.html', auction=auction, form=bid_form_instance, form2=close_form_instance)
 
 
 @bp.route('/<id>/bid', methods=['GET', 'POST'])
