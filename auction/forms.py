@@ -18,6 +18,9 @@ class AuctionForm(FlaskForm):
   starting_bid = IntegerField('Starting Bid (in dollars)', validators=[InputRequired('A starting bid is required')])
   submit = SubmitField("Create")
   
+class CloseForm(FlaskForm):
+    submit = SubmitField('Close Listing')
+
 class WatchlistForm(FlaskForm):
     text = TextAreaField('Comment', validators=[InputRequired('Comment is required'), Length(min=5, max=300, message="Comment is too short or too long")])
     submit = SubmitField('Add Comment')

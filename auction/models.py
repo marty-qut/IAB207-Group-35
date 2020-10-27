@@ -25,6 +25,7 @@ class Auction(db.Model):
     description = db.Column(db.String(200))
     image = db.Column(db.String(400))
     starting_bid = db.Column(db.String(400))
+    auction_status = db.Column(db.String(400))
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
     bids = db.relationship('Bid', backref='auction')

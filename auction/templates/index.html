@@ -18,7 +18,7 @@
 
   
 <div class="page-header">
-  <h4>Featured</h4>
+  <h4>Recently added items</h4>
 </div>
 
 <div class="container">
@@ -34,10 +34,20 @@
 
           {% if auction.bids|length == 0 %}
           <p class="card-text">Starting price: ${{ auction.starting_bid }}</p>
-          {% else %}
+          {% elif auction.bids|length != 0 and auction.auction_status == None %}
           <p class="card-text">Current Bid: ${{auction.bids|last}}</p>
+          {% elif auction.bids|length != 0 and auction.auction_status != None %}
+          <p class="card-text">Winning Bid: ${{auction.bids|last}}</p>
           {% endif %}
           <!--IF statements to test if there are any entries in the bids table - if there aren't the starting bid is used, and if there are the latest bid is used-->
+          <!--If the auction is closed, it will pass the latest bid as the winning bid-->
+
+          {% if auction.auction_status == None %}
+          <p class="card-text">Auction status: Open</p>
+          {% else %}
+          <p class="card-text">Auction status: Closed</p>
+          {% endif %}
+          <!--Sees whether the auction is open or not-->
 
           <a href="{{url_for('auction.listing', id=auction.id)}}" class="btn btn-primary mb-2">View Details</a>
 

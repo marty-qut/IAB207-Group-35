@@ -35,15 +35,27 @@
         <p class="card-text">Starting price: <br> ${{ auction.starting_bid }}</p>
         {% endif %}
 
+    {% if auction.auction_status == None %} <!--If the auction is open, the latest bid will be displayed as the current bid-->
         {% for bid in auction.bids[-1:] %}  <!--Looks for the latest bid information and imports it-->
         <p class="card-text">Current bid: <br> ${{ bid.text }} by {{ bid.user.name }}</p>
         {% endfor %}
+    {% else %} <!--If the auction is closed, the latest bid will be displayed as the winning bid-->
+        {% for bid in auction.bids[-1:] %}  <!--Looks for the latest bid information and imports it-->
+        <p class="card-text">Winning bid: <br> ${{ bid.text }} by {{ bid.user.name }}</p>
+        {% endfor %}
+    {% endif %}
 
         <p class="card-text">Number of bids: {{auction.bids|length}}</p>
-        <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
+
+        {% if auction.auction_status == None %}
+        <p class="card-text">Auction status: Open</p>
+        {% else %}
+        <p class="card-text">Auction status: Closed</p> 
+        {% endif %}
+        <!--Yet another IF statement to check whether the auction is opened or closed-->
 
         <!-- Button trigger modal -->
-        {% if current_user == auction.user %}
+        {% if current_user == auction.user %} <!--Only the user who created the listing can view all bids -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ViewModal">
             View all bids
         </button>
@@ -59,7 +71,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        {% if auction.bids|length ==0 %}
+                        {% if auction.bids|length == 0 %}
                             <h6>No bids yet!</h6>
                         {% else %}
                             {% for bid in auction.bids %}
@@ -70,8 +82,9 @@
                     </div>
                 </div>
             </div>
-            
-        {% else %}
+        {% endif %}   
+
+        {% if current_user != auction.user and auction.auction_status == None %} <!--Only the users who did not create the listing can bid, and if the auction is closed noone can bid -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BidModal">
             Place a Bid
         </button>
@@ -101,11 +114,12 @@
         </div>
         {% endif %}
 
-        {% if current_user == auction.user %}
+        {% if current_user == auction.user and auction.auction_status == None %}<!--Only the user who created the listing can close it, and  you can't close an auction that's already closed-->
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CloseModal">
             Close Auction
         </button>
+        {% endif %}
 
         <!-- Modal -->
         <div class="modal fade" id="CloseModal" tabindex="-1" aria-labelledby="CloseModalLabel"
@@ -120,12 +134,13 @@
                     </div>
                     <div class="modal-body">
                         Are you sure you want to close this auction?
+                        {{ wtf.quick_form(form, "/auctions/{0}/close".format(auction.id)) }}
                     </div>
                 </div>
             </div>
         </div>
-        
-        {% else %}
+
+        {% if current_user != auction.user and auction.auction_status == None %} <!-- Only the users who did not create the listing can add to watchlist, and you can't add a closed auction to a watchlist-->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#WatchlistModal">
             Add to Watchlist
         </button>

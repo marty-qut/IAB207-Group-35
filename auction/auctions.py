@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect, flash
 from .models import Auction, Bid
-from .forms import AuctionForm, BidForm
+from .forms import AuctionForm, BidForm, CloseForm
 from flask_login import login_required, current_user
 from . import db
 import os
@@ -11,14 +11,22 @@ bp = Blueprint('auction', __name__, url_prefix = '/auctions')
 @bp.route('/<id>')
 def listing(id):
     auction = Auction.query.filter_by(id=id).first()
-    bid_form_instance = BidForm()
-    return render_template('auctions/listing.html', auction=auction, form=bid_form_instance)
+
+    if auction.user == current_user:
+      form_instance = CloseForm()
+    else:
+      form_instance = BidForm()
+    # Works out which form is needed - if the user created the listing, they get the close auction form, otherwise the bidding form is presented.
+    # Still not sure how a watchlist form is going to work, since the user form will be the bidding form. 
+
+    return render_template('auctions/listing.html', auction=auction, form=form_instance)
+
 
 @bp.route('/<id>/bid', methods=['GET', 'POST'])
 @login_required
 def bid(id):
-    bid_form_instance = BidForm()
     auction_obj = Auction.query.filter_by(id=id).first()
+    bid_form_instance = BidForm()
 
     if db.session.query(Bid.text).filter_by(auction_id=id).order_by(Bid.id.desc()).first() != None: # This looks for any existing entries in the Bid table in the database
       last_bid = db.session.query(Bid.text).filter_by(auction_id=id).order_by(Bid.id.desc()).first() # The query to find the latest bid
@@ -53,6 +61,20 @@ def bid(id):
       
     return redirect(url_for('auction.listing', id=id))
 
+@bp.route('/<id>/close', methods=['GET', 'POST'])
+def closeauction(id):
+    auction = Auction.query.filter_by(id=id).first()
+    close_form_instance = CloseForm()
+    status_number = 1
+
+    if close_form_instance.validate_on_submit():
+      auction.auction_status = status_number
+
+      db.session.commit()
+
+    return redirect(url_for('auction.listing', id=id))
+# Closing an auction is simply setting its respective field in the database to a value other than null, then using IF statements to see if this is true or false
+
 def check_upload_file(form):
   fp = form.image.data
   filename = fp.filename
@@ -62,6 +84,7 @@ def check_upload_file(form):
   db_upload_path = '/static/image/'+ secure_filename(filename)
   fp.save(upload_path)
   return db_upload_path
+# Necessary code from tutes to get images working
 
 @bp.route('/sell', methods=['GET', 'POST'])
 @login_required
@@ -85,4 +108,4 @@ def create():
     return redirect(url_for('auction.create'))
 
   return render_template('auctions/creation.html', form=auction_form_instance)
-
+# Creates the form and slaps the data from it into the database
