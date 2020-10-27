@@ -29,52 +29,29 @@
     </div>
 
     <div class="container">
+      {% if auctions %}
       <div class="row">
+        {% for auction in auctions %}
         <div class="col">
           <div class="card" style="width: 18rem;">
             <br>
-            <img src="..\static\note20ultragold.jfif" class="card-img-top" alt="...">
+            <img class="card-img-top" src="{{auction.image}}" alt="{{auction.name}}" style="max-width: 170px">
             <div class="card-body">
-              <h5 class="card-title">Samsung Galaxy Note20 Ultra 5G 256GB Bronze</h5>
-              <p class="card-text">Current bid: <br><i>$1201</i></p>
-              <p class="card-text">Your Bid: <br><i>No bid yet</i></p>
-              <p class="card-text">Date added: <br><i>12/09/2020</i></p>
+              <h5 class="card-title">{{auction.model}} {{auction.name}}</h5>
+              <p class="card-text">Date added: ${{datetime.now}}</p>
               <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
+
+              <p class="card-text">Current Bid: ${{auction.bids|last}}</p>
+              {% elif auction.bids|length != 0 and auction.auction_status == None %}
+              <p class="card-text">Winning Bid: ${{auction.bids|last}}</p>
+              {% endif %}
+
               <a href="#" class="btn btn-primary">Check Phone</a>
             </div>
           </div>
-      
-        </div>
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <br>
-            <img src="..\static\googlepixel4white.jfif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Google Pixel 4 64GB Clearly White</h5>
-              <p class="card-text">Current bid: <br><i>$400</i></p>
-              <p class="card-text">Your Bid: <br><i>$400</i></p>
-              <p class="card-text">Date added: <br><i>12/09/2020</i></p>
-              <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-              <a href="#" class="btn btn-primary">Check Phone</a>
-            </div>
-          </div>
-      
-        </div>
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <br>
-            <img src="..\static\iphonexrblack.jfif" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">iPhone XR 64GB <br>Black</h5>
-              <p class="card-text">Current bid: <br><i>$600</i></p>
-              <p class="card-text">Your Bid: <br><i>$200</i></p>
-              <p class="card-text">Date added: <br><i>12/09/2020</i></p>
-              <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-              <a href="#" class="btn btn-primary">Check Phone</a>
-            </div>
-          </div>
-      
+          {% endfor %}
         </div>
       </div>
+      {% endif %}
     </div>
 {% endblock %}

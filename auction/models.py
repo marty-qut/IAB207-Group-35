@@ -15,6 +15,8 @@ class User(db.Model, UserMixin):
     # relation to call user.comments and comment.created_by
     bids = db.relationship('Bid', backref='user')
     auctions = db.relationship('Auction', backref='user')
+    watchlists = db.relationship('Watchlist', backref='user')
+
 
 
 class Auction(db.Model):
@@ -29,7 +31,7 @@ class Auction(db.Model):
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
     bids = db.relationship('Bid', backref='auction')
-    #watchlists = db.relationship('Watchlist', backref='auction')
+    watchlists = db.relationship('Watchlist', backref='auction')
     #add the foreign key
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	
@@ -51,16 +53,18 @@ class Bid(db.Model):
         return "{}".format(self.text)
 
 
-#class Watchlist(db.Model):
-    #__tablename__ = 'watchlist'
-    #id = db.Column(db.Integer, primary_key=True)
-    #created_at = db.Column(db.DateTime, default=datetime.now())
+class Watchlist(db.Model):
+    __tablename__ = 'watchlist'
+    id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.DateTime, default=datetime.now())
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
-    #bids = db.relationship('Bid', backref='auction')
+    bids = db.relationship('Bid', backref='auction')
+    auctions = db.relationship('Auction', backref='watchlist')
+
     #add the foreign key
-    #user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    #auction_id = db.Column(db.Integer, db.ForeignKey('auctions.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    auction_id = db.Column(db.Integer, db.ForeignKey('auctions.id'))
 	
-    #def __repr__(self): #string print method
-        #return "<Watchlist: {}>".format(self.name)
+    def __repr__(self): #string print method
+        return "<Watchlist: {}>".format(self.name)
