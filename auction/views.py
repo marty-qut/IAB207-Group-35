@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
-from flask_login import login_required
-from .models import Auction
+from flask_login import login_required, current_user
+from .models import Auction, Watchlist, Bid
+from . import db
 
 bp = Blueprint('main', __name__)
 
@@ -21,7 +22,8 @@ def search():
 @bp.route('/watchlist', methods=['GET', 'POST'])
 @login_required
 def watchlist():
-    return render_template('watchlist.html')
+    auctions = Auction.query.all()
+    return render_template('watchlist.html', auctions=auctions)
 
 @bp.route('/sell', methods=['GET', 'POST'])
 @login_required

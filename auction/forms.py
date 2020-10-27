@@ -22,8 +22,7 @@ class CloseForm(FlaskForm):
     submit2 = SubmitField('Close Listing')
 
 class WatchlistForm(FlaskForm):
-    text = TextAreaField('Comment', validators=[InputRequired('Comment is required'), Length(min=5, max=300, message="Comment is too short or too long")])
-    submit3 = SubmitField('Add Comment')
+    submit3 = SubmitField('Add to Watchlist')
     # not actually being used
 
 class BidForm(FlaskForm):

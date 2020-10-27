@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect, flash
-from .models import Auction, Bid
-from .forms import AuctionForm, BidForm, CloseForm
+from .models import Auction, Bid, Watchlist
+from .forms import AuctionForm, BidForm, CloseForm, WatchlistForm
 from flask_login import login_required, current_user
 from . import db
 import os
@@ -14,8 +14,9 @@ def listing(id):
 
     close_form_instance = CloseForm()
     bid_form_instance = BidForm()
+    add_form_instance = WatchlistForm()
 
-    return render_template('auctions/listing.html', auction=auction, form=bid_form_instance, form2=close_form_instance)
+    return render_template('auctions/listing.html', auction=auction, form=bid_form_instance, form2=close_form_instance, form3=add_form_instance)
 
 
 @bp.route('/<id>/bid', methods=['GET', 'POST'])
@@ -55,6 +56,20 @@ def bid(id):
     else:
       flash('Please enter a number for your bid', 'info') # When the user tries to enter anything that isn't accepted by the flaskform
       
+    return redirect(url_for('auction.listing', id=id))
+
+@bp.route('/<id>/add', methods=['GET', 'POST'])
+def addlist(id):
+    auction = Auction.query.filter_by(id=id).first()
+    add_form_instance = WatchlistForm()
+
+    if add_form_instance.validate_on_submit():
+      watchlist = Watchlist(auction=auction,
+                            user=current_user)
+      
+      db.session.add(watchlist)
+      db.session.commit()
+
     return redirect(url_for('auction.listing', id=id))
 
 @bp.route('/<id>/close', methods=['GET', 'POST'])
@@ -104,4 +119,3 @@ def create():
     return redirect(url_for('auction.create'))
 
   return render_template('auctions/creation.html', form=auction_form_instance)
-# Creates the form and slaps the data from it into the database
