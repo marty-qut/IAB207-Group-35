@@ -40,16 +40,19 @@
               <h5 class="card-title">{{auction.model}} {{auction.name}}</h5>
               <p class="card-text">Date added: ${{datetime.now}}</p>
               <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-
-              <p class="card-text">Current Bid: ${{auction.bids|last}}</p>
+              
+              {% if auction.bids|length == 0 %}
+              <p class="card-text">Starting price: ${{ auction.starting_bid }}</p>
               {% elif auction.bids|length != 0 and auction.auction_status == None %}
+              <p class="card-text">Current Bid: ${{auction.bids|last}}</p>
+              {% elif auction.bids|length != 0 and auction.auction_status != None %}
               <p class="card-text">Winning Bid: ${{auction.bids|last}}</p>
               {% endif %}
 
               <a href="#" class="btn btn-primary">Check Phone</a>
             </div>
           </div>
-          {% endfor %}
+        {% endfor %}
         </div>
       </div>
       {% endif %}

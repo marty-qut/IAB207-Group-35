@@ -57,10 +57,6 @@ class Watchlist(db.Model):
     __tablename__ = 'watchlist'
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.now())
-    # ... Create the Comments db.relationship
-	# relation to call destination.comments and comment.destination
-    bids = db.relationship('Bid', backref='auction')
-    auctions = db.relationship('Auction', backref='watchlist')
 
     #add the foreign key
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
