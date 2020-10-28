@@ -34,7 +34,7 @@ class Auction(db.Model):
     watchlists = db.relationship('Watchlist', backref='auction')
     #add the foreign key
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-	
+
     def __repr__(self): #string print method
         return "<Name: {}>".format(self.name)
 
@@ -58,9 +58,9 @@ class Watchlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.now())
 
-    #add the foreign key
+    #add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     auction_id = db.Column(db.Integer, db.ForeignKey('auctions.id'))
-	
+
     def __repr__(self): #string print method
         return "<Watchlist: {}>".format(self.name)
