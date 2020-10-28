@@ -2,10 +2,11 @@
 {% extends "header.html" %}
 <!-- Exports header and navbar from header.html
      or any file you want-->
-{% block title %}Page Not Found{% endblock %}
+{% block title %}Internal Server Error{% endblock %}
 {% block body %}
 
-  <h1>Oops! Looks like this page doesn't exist</h1>
+<!-- I was marginally tempted to do the uwu fucky wucky meme -->
+  <h1>Servers are currently overloaded or a program has crashed</h1>
   <a href="{{ url_for('index') }}"><p>Click Here</a>To go to the Home Page</p>
 
 <!-- {{ url_for('index') }} is a var which returns url of index.html-->
