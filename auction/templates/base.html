@@ -51,10 +51,10 @@
     }
     footer {
         background-color: rgb(30, 205, 224); /* color adjustment */
-        margin-top: 10%;
-        padding-top: 1%;
-        padding-bottom: 1%;
-        color: white;
+        margin-top: 10%; /* Margin Adjustment*/
+        padding-top: 1%; /* padding Adjustment*/
+        padding-bottom: 1%; /* padding Adjustment*/
+        color: white; /* Font Color*/
     }
     /*card styling*/
   .card {
@@ -93,18 +93,18 @@
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span> <!--vavbar toggle button-->
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent"> <!--Navbar Collapse-->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('auction.create')}}"><h2>Sell</h2><span
-                                class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{url_for('auction.create')}}"><h2>Sell</h2><span 
+                                class="sr-only">(current)</span></a>  <!--Sell nav item-->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url_for('main.watchlist')}}"><h2>Watchlist</h2></a>
-                    </li>
+                    </li> <!--Watchlist nav item-->
                         <h2>
                             {% if current_user.is_authenticated %}
                         </h2>
@@ -112,16 +112,16 @@
                         <a class="nav-link" href="#"><h2>{{ current_user.name  }}</h2></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('auth.logout')}}"><h2>Logout</h2></a>
+                        <a class="nav-link" href="{{url_for('auth.logout')}}"><h2>Logout</h2></a> <!--Logout nav item-->
                     </li>
                         <h2>
                             {% else %} 
                         </h2>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('auth.login')}}"><h2>Login</h2></a>
+                        <a class="nav-link" href="{{url_for('auth.login')}}"><h2>Login</h2></a> <!--Login nav item-->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('auth.register')}}"><h2>Register</h2></a>
+                        <a class="nav-link" href="{{url_for('auth.register')}}"><h2>Register</h2></a> <!--Register nav item-->
                     </li>
                     <h2>
                             {% endif %} 
@@ -130,16 +130,16 @@
                 
                 <form class="form-inline my-2 my-lg-0" action="{{url_for('main.search')}}">
                     <select class="form-control mr-sm-2" id="phones" name="search" placeholder="Search" aria-label="Search" style="width: 200px">
-                        <option value="">Search...</option>
-                        <option value="Samsung">Samsung</option>
-                        <option value="Nokia">Nokia</option>
-                        <option value="Apple">Apple</option>
-                        <option value="Huawei">Huawei</option>
-                        <option value="HTC">HTC</option>
-                        <option value="Sony">Sony</option>
-                        <option value="Other">Other</option>
+                        <option value="">Search...</option> <!--Search option-->
+                        <option value="Samsung">Samsung</option> <!--Search option-->
+                        <option value="Nokia">Nokia</option> <!--Search option-->
+                        <option value="Apple">Apple</option> <!--Search option-->
+                        <option value="Huawei">Huawei</option> <!--Search option-->
+                        <option value="HTC">HTC</option> <!--Search option-->
+                        <option value="Sony">Sony</option> <!--Search option-->
+                        <option value="Other">Other</option> <!--Search option-->
                     </select>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> <!--Submit button class-->
                 </form>
             </div>
         </nav>
@@ -154,7 +154,7 @@
     {% endblock %}
 
     <br>
-    <footer class="footer">
+    <footer class="footer"> <!--Footer class with information-->
             <span>
                 <h3 class="center">
                     Copyright &copy; 2020
