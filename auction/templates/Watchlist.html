@@ -4,14 +4,6 @@
     {% block title %}Watchlist{% endblock %}
 
     {% block content %}
-  <style>
-  
-  img {
-        padding-top:5%; /* padding Adjustment*/
-        padding-bottom:5%; /* padding Adjustment*/
-        width: 100%; /*Image width*/
-  }
-  </style>
 
    <!-- Watchlist Section -->
 <div class="page-header">
@@ -20,16 +12,15 @@
 
 <div class="container">
   {% if auctions %}
-  <div class="row">
-    {% for auction in auctions %}
-    <div class="col">
-      <div class="card" style="width: 18rem;">
-        <br>
-        <img class="card-img-top" src="{{auction.image}}" alt="{{auction.name}}" style="max-width: 170px">
+  <!-- Flask Batching -->
+  <div class="card-deck mb-3">
+    <div class="row">
+      {% for auction in auctions %}
+      <div class="card">
+        <img class="card-img-top" src="{{auction.image}}" alt="{{auction.name}}" style="max-width: 190px">
         <div class="card-body">
           <h5 class="card-title">{{auction.model}} {{auction.name}}</h5>
-          <p class="card-text">Date ending:<br><i>15/09/2020 13:01</i></p>
-          
+
           {% if auction.bids|length == 0 %}
           <p class="card-text">Starting price: ${{ auction.starting_bid }}</p>
           {% elif auction.bids|length != 0 and auction.auction_status == None %}
@@ -37,13 +28,32 @@
           {% elif auction.bids|length != 0 and auction.auction_status != None %}
           <p class="card-text">Winning Bid: ${{auction.bids|last}}</p>
           {% endif %}
+          <!--IF statements to test if there are any entries in the bids table - if there aren't the starting bid is used, and if there are the latest bid is used-->
+          <!--If the auction is closed, it will pass the latest bid as the winning bid-->
 
-          <a href="#" class="btn btn-primary">Check Phone</a>
+          {% if auction.auction_status == None %}
+          <p class="card-text">Auction status: Open</p>
+          {% else %}
+          <p class="card-text">Auction status: Closed</p>
+          {% endif %}
+          <!--Sees whether the auction is open or not-->
+
+          <a href="{{url_for('auction.listing', id=auction.id)}}" class="btn btn-primary mb-2">View Details</a>
+
+          {% if auction.bids|length == 1 %}
+          <p class="card-text"><small class="text-muted">{{auction.bids|length}} Bid</small></p>
+          {% elif auction.bids|length > 1 %}
+          <p class="card-text"><small class="text-muted">{{auction.bids|length}} Bids</small></p>
+          {% elif auction.bids|length == 0 %}
+          <p class="card-text"><small class="text-muted">0 Bids</small></p>
+          {% endif %}
+          <!--Bunch of IF statements to show the plural of the word "bid" or lack thereof, and a flat 0-->
+
         </div>
       </div>
-    {% endfor %}
+      {% endfor %}
     </div>
   </div>
-  {% endif %}
+    {% endif %}
 </div>
-{% endblock %}
+  {% endblock %}
