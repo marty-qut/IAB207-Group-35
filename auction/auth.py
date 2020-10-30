@@ -1,6 +1,6 @@
-from flask import ( 
+from flask import (
     Blueprint, flash, render_template, request, url_for, redirect, session
-) 
+)
 from werkzeug.security import generate_password_hash,check_password_hash
 from .models import User
 from .forms import LoginForm,RegisterForm
@@ -51,7 +51,7 @@ def register():
             flash('This username already exists, please login!', 'info')
             return redirect(url_for('auth.login'))
 
-        pwd_hash = generate_password_hash(pwd) 
+        pwd_hash = generate_password_hash(pwd)
         new_user = User(name=username, emailid=email, password_hash=pwd_hash)
 
         db.session.add(new_user)

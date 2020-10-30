@@ -1,5 +1,5 @@
 #import flask - from the package import class
-from flask import Flask
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -45,5 +45,24 @@ def create_app():
 
     from . import auth
     app.register_blueprint(auth.bp)
+
+    # error handling
+    @app.errorhandler(403)
+    def forbidden(error):
+        return render_template('forbidden.html', title = '403'), 403
+    @app.errorhandler(404)
+    def page_not_found(error):
+        return render_template('pagenotfound.html', title = '404'), 404
+    @app.errorhandler(410)
+    def page_gone(error):
+        return render_template('gone.html', title = '410'), 410
+    @app.errorhandler(500)
+    def internal_error(error):
+        return render_template('internalservererror.html', title = '500'), 500
+
+    app.register_error_handler(403, forbidden)
+    app.register_error_handler(404, page_not_found)
+    app.register_error_handler(410, page_gone)
+    app.register_error_handler(500, internal_error)
 
     return app
