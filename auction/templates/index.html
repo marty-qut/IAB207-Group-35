@@ -8,8 +8,8 @@
 
 
 
-<div class="page-header">
-  <h4>Featured Items</h4>
+<div class="header">
+  <h1 style="color:black;text-align:center;">Featured Items</h1>
 </div>
 
 <div class="container">
@@ -18,7 +18,7 @@
   <div class="card-deck mb-3">
     <div class="row">
       {% for auction in auctions %}
-      <div class="card">
+      <div class="card bg-info text-white">
         <img class="card-img-top" src="{{auction.image}}" alt="{{auction.name}}" style="max-width: 190px">
         <div class="card-body">
           <h5 class="card-title">{{auction.model}} {{auction.name}}</h5>
