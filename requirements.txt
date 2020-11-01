@@ -34,7 +34,6 @@ Flask-Script==2.0.6
 Flask-User==1.0.1.5
 psycopg2-binary==2.8.3
 Mako==1.0.7
-MarkupSafe==1.1.0
 passlib==1.7.1
 pycparser==2.19
 python-dateutil==2.7.5
