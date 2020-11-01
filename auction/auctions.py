@@ -59,6 +59,7 @@ def bid(id):
     return redirect(url_for('auction.listing', id=id))
 
 @bp.route('/<id>/add', methods=['GET', 'POST'])
+@login_required
 def addlist(id):
     auction = Auction.query.filter_by(id=id).first()
     add_form_instance = WatchlistForm()
@@ -69,6 +70,8 @@ def addlist(id):
       
       db.session.add(watchlist)
       db.session.commit()
+
+      flash('Item added to your watchlist', 'info')
 
     return redirect(url_for('auction.listing', id=id))
 
@@ -116,6 +119,7 @@ def create():
     db.session.commit()
     
     print('form is valid')
+    flash('Item successfully listed', 'info')
     return redirect(url_for('auction.create'))
 
   return render_template('auctions/creation.html', form=auction_form_instance)

@@ -4,14 +4,14 @@ from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordFiel
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
-ALLOWED_FILE = {'png', 'jpg', 'JPG', 'PNG'}
+ALLOWED_FILE = {'png', 'jpg', 'JPG', 'PNG', 'jpeg', 'JPEG'}
 Phone_Choices = [("Samsung"), ("Nokia"), ("Apple"), ("Huawei"), ("HTC"), ("Sony"), ("Other")]
 
 class AuctionForm(FlaskForm):
   model = SelectField('Device Make', choices=Phone_Choices)
   name = StringField('Phone Name', validators=[InputRequired('Field is required')])
   #adding two validators, one to ensure input is entered and other to check if the description meets the length requirements
-  description = TextAreaField('Description', validators=[InputRequired('Field is required'), Length(min=10, max=300, message="Description is too short or too long")])
+  description = TextAreaField('Description', validators=[InputRequired('Field is required'), Length(min=10, max=1000, message="Description is too short or too long")])
   image = FileField('Item Image', validators=[
                     FileRequired(message='Image cannot be empty'),
                     FileAllowed(ALLOWED_FILE, message='Only supports valid filetypes')])
