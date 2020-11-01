@@ -6,8 +6,8 @@
     {% block content %}
 
    <!-- Watchlist Section -->
-<div class="header">
-    <h1 style="color:black;text-align:center;">Watchlist</h1>
+<div class="page-header">
+    <h4>Watchlist</h4>
 </div>
 
 <div class="container">
@@ -16,7 +16,7 @@
   <div class="card-deck mb-3"> <!--Inputs into bid card-->
     <div class="row">
       {% for auction in auctions %}
-      <div class="card bg-info text-white">
+      <div class="card">
         <img class="card-img-top" src="{{auction.image}}" alt="{{auction.name}}" style="max-width: 190px">
         <div class="card-body">
           <h5 class="card-title">{{auction.model}} {{auction.name}}</h5>
@@ -41,14 +41,19 @@
           <a href="{{url_for('auction.listing', id=auction.id)}}" class="btn btn-primary mb-2">View Details</a>
 
           {% if auction.bids|length == 1 %}
-          <p class="card-text"><small class="text-light">{{auction.bids|length}} Bid</small></p>
+          <p class="card-text"><small class="text-muted">{{auction.bids|length}} Bid</small></p>
           {% elif auction.bids|length > 1 %}
-          <p class="card-text"><small class="text-light">{{auction.bids|length}} Bids</small></p>
+          <p class="card-text"><small class="text-muted">{{auction.bids|length}} Bids</small></p>
           {% elif auction.bids|length == 0 %}
-          <p class="card-text"><small class="text-light">0 Bids</small></p>
+          <p class="card-text"><small class="text-muted">0 Bids</small></p>
           {% endif %}
           <!--Bunch of IF statements to show the plural of the word "bid" or lack thereof, and a flat 0-->
 
+          {% for watchlist in auction.watchlists %}
+            {% if watchlist.user_id == current_user.id %}
+             <p class="card-text"> Added to watchlist on: <br> {{ watchlist.created_at.strftime('%d-%m-%Y') }}</p>
+            {% endif %}
+          {% endfor %} <!-- This section sorts out each date that the item was added to the watchlist, then sorts by user that added it (so dates don't start stacking up due to multiple users adding the same item to their watchlist) -->
         </div>
       </div>
       {% endfor %}

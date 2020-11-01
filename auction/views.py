@@ -22,7 +22,7 @@ def search():
 @bp.route('/watchlist', methods=['GET', 'POST'])
 @login_required
 def watchlist():
-    auctions = Auction.query.all()
+    auctions = Auction.query.join(Auction.watchlists).filter(Watchlist.user_id.like(current_user.id)).all()
     return render_template('watchlist.html', auctions=auctions)
 
 @bp.route('/sell', methods=['GET', 'POST'])
